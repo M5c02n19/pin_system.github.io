@@ -105,45 +105,42 @@
     <button onclick="zoomOut()" class="btn btn-outline-primary">➖ ซูมออก</button>
     <button onclick="resetZoom()" class="btn btn-outline-secondary">🔄 รีเซ็ต</button>
 
-  <div id="captureArea">
-    <div class="text-center mb-3">
-      <h4 id="Texthead">รายละเอียดโครงการ</h4>
+    <div id="captureArea">
+      <div class="text-center mb-3">
+        <h4 id="Texthead">รายละเอียดโครงการ</h4>
+      </div>
+      <div id="planContainer"></div>
+      <h5 class="mt-4">📊 สรุปจำนวนหมุดแยกตามประเภท</h5>
+      <ul id="summaryList" class="list-group w-100 mb-1"></ul>
+      <p id="totalPinsContainer"><strong>📌 รวมทั้งหมด: <span id="totalPins">0</span> จุด</strong></p>
+      <script>
+        // Ensure totalPinsContainer is visible before export
+        document.getElementById('exportPdfBtn').addEventListener('click', function () {
+          document.getElementById('totalPinsContainer').style.display = '';
+        });
+      </script>
+      <div class="mb-3 ">
+        <p>พื้นที่ทาสีผนัง: <span id="AreawallDisplay"></span> ตร.ม.</p>
+        <p>พื้นที่ทาสีเพดาน: <span id="AreaceilingDisplay"></span> ตร.ม.</p>
+      </div>
+      <script>
+        // อัปเดตข้อความแสดงค่าจาก input
+        function updateAreaDisplays() {
+          document.getElementById('AreawallDisplay').textContent = document.getElementById('Areawall').value || '0';
+          document.getElementById('AreaceilingDisplay').textContent = document.getElementById('Areaceiling').value || '0';
+        }
+        document.getElementById('Areawall').addEventListener('input', updateAreaDisplays);
+        document.getElementById('Areaceiling').addEventListener('input', updateAreaDisplays);
+        updateAreaDisplays();
+      </script>
+      <br>
+      <br>
+      <footer class="mt-4">
+        <p class="text-center text-muted">© 2025 ระบบสำรวจความเสียหายส่วนกลางอาคาร V 1.0 by Adisorn</p>
+      </footer>
+      <br>
     </div>
-    <div id="planContainer"></div>
-    <h5 class="mt-4">📊 สรุปจำนวนหมุดแยกตามประเภท</h5>
-    <ul id="summaryList" class="list-group w-100 mb-1"></ul>
-    <p id="totalPinsContainer"><strong>📌 รวมทั้งหมด: <span id="totalPins">0</span> จุด</strong></p>
-    <script>
-      // Ensure totalPinsContainer is visible before export
-      document.getElementById('exportPdfBtn').addEventListener('click', function () {
-      document.getElementById('totalPinsContainer').style.display = '';
-      });
-    </script>
-  <div class="mb-3 ">
-    <p>พื้นที่ทาสีผนัง: <span id="AreawallDisplay"></span> ตร.ม.</p>
-    <p>พื้นที่ทาสีเพดาน: <span id="AreaceilingDisplay"></span> ตร.ม.</p>
   </div>
-  <script>
-    // อัปเดตข้อความแสดงค่าจาก input
-    function updateAreaDisplays() {
-      document.getElementById('AreawallDisplay').textContent = document.getElementById('Areawall').value || '0';
-      document.getElementById('AreaceilingDisplay').textContent = document.getElementById('Areaceiling').value || '0';
-    }
-    document.getElementById('Areawall').addEventListener('input', updateAreaDisplays);
-    document.getElementById('Areaceiling').addEventListener('input', updateAreaDisplays);
-    updateAreaDisplays();
-  </script>
-</div>
-  </div>
-   <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <footer class="mt-4">
-    <p class="text-center text-muted">© 2025 ระบบสำรวจความเสียหายส่วนกลางอาคาร V 1.0 by Adisorn</p>
-  </footer>
- 
   </div>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
