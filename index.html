@@ -34,7 +34,7 @@
   </style>
 </head>
 
-<body class="p-4 container">
+<body class="container p-4 ">
   <h3 class="text-center">📍 ระบบปักหมุดตรวจสอบความเสียหายของส่วนกลางอาคาร</h3>
   <div class="mb-3">
     <label for="Texthead" class="form-label"> รายละเอียดโครงการ:</label>
@@ -52,8 +52,10 @@
           <button type="button" class="btn btn-warning" data-color="orange">รอยร้าวแผลเล็ก (ยาว > 1 m.) </button>
           <button type="button" class="btn btn-danger" data-color="red">รอยร้าว แผลใหญ่ </button>
           <button type="button" class="btn btn-primary" data-color="blue">ฝ้าเพดานร้าว(รอยต่อฝ้ากับฝ้า)</button>
-          <button type="button" class="btn btn" style="background-color: purple; color: white;" data-color="purple">ฝ้าเพดานร้าว (ผนังมุมฝ้า)</button>
-          <button type="button" class="btn btn-secondary" style="background-color: brown;" data-color="brown">งานกระเบื้อง</button>
+          <button type="button" class="btn btn" style="background-color: purple; color: white;"
+            data-color="purple">ฝ้าเพดานร้าว (ผนังมุมฝ้า)</button>
+          <button type="button" class="btn btn-secondary" style="background-color: brown;"
+            data-color="brown">งานกระเบื้อง</button>
     </div>
     <br>
     <h5 class="mt-2">พื้นที่ทาสีทั้งหมด :</h5>
@@ -83,6 +85,24 @@
     </style>
   </div>
   <script>
+    // ป้องกัน Ctrl + Scroll
+    window.addEventListener('wheel', function (e) {
+      if (e.ctrlKey) {
+        e.preventDefault();
+      }
+    }, { passive: false });
+
+    // ป้องกัน Ctrl + + / - / 0
+    window.addEventListener('keydown', function (e) {
+      if (e.ctrlKey && (
+        e.key === '+' ||
+        e.key === '-' ||
+        e.key === '=' ||
+        e.key === '0'
+      )) {
+        e.preventDefault();
+      }
+    });
     // ปุ่มเลือกประเภทหมุด
     const pinTypeButtons = document.querySelectorAll('#pinTypeButtons button');
     const pinTypeInput = document.getElementById('pinType');
@@ -109,7 +129,7 @@
     <button onclick="zoomOut()" class="btn btn-outline-primary">➖ ซูมออก</button>
     <button onclick="resetZoom()" class="btn btn-outline-secondary">🔄 รีเซ็ต</button>
 
-    <div id="captureArea" class="mt-3 p-3 border  " style="position: relative; width: 100%; height: 100%;">
+    <div id="captureArea" class="mt-3 p-3 border" style="position: relative; width: 100%; height: 100%;">
       <div class="text-center mb-3">
         <h4 id="Texthead">รายละเอียดโครงการ</h4>
       </div>
@@ -180,7 +200,7 @@
       red: 'รอยร้าว แผลใหญ่ ',
       blue: 'ฝ้าเพดานร้าว(รอยต่อฝ้ากับฝ้า)',
       purple: 'ฝ้าเพดานร้าว (ผนังมุมฝ้า',
-      brown:'งานกระเบื้อง',
+      brown: 'งานกระเบื้อง',
     };
     imageUpload.addEventListener('change', (e) => {
       const file = e.target.files[0];
@@ -322,7 +342,7 @@
       planContainer.style.transform = `scale(1)`;
     }
 
-    
+
     // Note: Most modern browsers ignore custom messages in beforeunload event handlers for security reasons.
     // The dialog shown to the user is browser-controlled and may not display the provided message.
     window.addEventListener("beforeunload", function (e) {
