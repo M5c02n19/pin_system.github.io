@@ -35,8 +35,9 @@
 </head>
 
 <body class="container p-4 ">
+    
   <h3 class="text-center">📍 ระบบปักหมุดตรวจสอบความเสียหายของส่วนกลางอาคาร</h3>
-  <div class="mb-3">
+   <div class="mb-3">
     <label for="Texthead" class="form-label"> รายละเอียดโครงการ:</label>
     <input type="text" id="Texthead" class="text-center form-control"
       value="รายการสำรวจความเสียหายส่วนกลาง ชั้น......โครงการ............" />
@@ -116,14 +117,16 @@
     // ตั้งค่าปุ่มแรกเป็น active
     pinTypeButtons[0].classList.add('active');
   </script>
+  <!-- ปุ่มควบคุมการทำงาน: ย้อนกลับ, บันทึก/โหลด CSV, บันทึกภาพ, ส่งออก PDF -->
   <div class="mb-3">
     <button id="undoBtn" class="btn btn-warning">↩️ ย้อนกลับ</button>
     <button id="saveCsvBtn" class="btn btn-primary">📥 บันทึก CSV</button>
     <button id="loadCsvBtn" class="btn btn-secondary">📤 โหลด CSV</button>
     <input type="file" id="csvFileInput" accept=".csv" class="form-control mt-2 d-none" />
-    <button id="saveImage" class="btn btn-success mt-2">💾 บันทึกภาพเป็น PNG</button>
-    <button id="exportPdfBtn" class="btn btn-danger mt-2">📄 ส่งออก PDF</button>
+    <button id="saveImage" class="btn btn-success ">💾 บันทึกภาพเป็น PNG</button>
+    <button id="exportPdfBtn" class="btn btn-danger ">📄 ส่งออก PDF</button>
   </div>
+
   <div class="mb-3">
     <button onclick="zoomIn()" class="btn btn-outline-primary">➕ ซูมเข้า</button>
     <button onclick="zoomOut()" class="btn btn-outline-primary">➖ ซูมออก</button>
@@ -163,7 +166,7 @@
       <br>
       <br>
       <footer class="mt-4">
-        <p class="text-center text-muted">© 2025 ระบบสำรวจความเสียหายส่วนกลางอาคาร V 1.0 by Adisorn</p>
+        <p class="text-center text-muted">© 2025 ระบบสำรวจความเสียหายส่วนกลางอาคาร V 1.02 by Adisorn</p>
       </footer>
       <br>
     </div>
@@ -258,13 +261,20 @@
       });
     });
     document.getElementById('saveCsvBtn').addEventListener('click', () => {
-      const csv = pins.map(p => `${p.id},${p.x},${p.y},${p.type}`).join('\n');
-      const blob = new Blob(["id,x,y,type\n" + csv], { type: 'text/csv;charset=utf-8;' });
+      const inputs = document.querySelectorAll('input[type="text"]');
+      const metadata = Array.from(inputs).map(input => {
+        return `${input.id},${input.value}`;
+      }).join('\n');
+
+      const pinsData = pins.map(p => `${p.id},${p.x},${p.y},${p.type}`).join('\n');
+
+      const csvContent = metadata + '\n---\nid,x,y,type\n' + pinsData;
+
+      const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
       const link = document.createElement("a");
       link.href = URL.createObjectURL(blob);
       link.download = "pins.csv";
       link.click();
-
     });
     document.getElementById('loadCsvBtn').addEventListener('click', () => {
       document.getElementById('csvFileInput').click();
@@ -274,12 +284,27 @@
       if (!file) return;
       const reader = new FileReader();
       reader.onload = function (event) {
-        const lines = event.target.result.trim().split('\n').slice(1);
+        const lines = event.target.result.trim().split('\n');
+        let i = 0;
+
+        while (i < lines.length && lines[i] !== '---') {
+          const [id, value] = lines[i].split(',');
+          const input = document.getElementById(id);
+          if (input) input.value = value;
+          i++;
+        }
+
+        document.querySelector("#captureArea h4").textContent = document.getElementById('Texthead').value;
+        updateAreaDisplays();
+
+        i += 2;
+
         pins.forEach(p => planContainer.removeChild(p.element));
         pins = [];
         pinCount = 0;
-        for (let line of lines) {
-          const [id, x, y, type] = line.split(',');
+
+        for (; i < lines.length; i++) {
+          const [id, x, y, type] = lines[i].split(',');
           pinCount++;
           const pin = document.createElement('div');
           pin.classList.add('pin');
