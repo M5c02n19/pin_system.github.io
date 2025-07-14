@@ -120,9 +120,9 @@
   <!-- ปุ่มควบคุมการทำงาน: ย้อนกลับ, บันทึก/โหลด CSV, บันทึกภาพ, ส่งออก PDF -->
   <div class="mb-3">
     <button id="undoBtn" class="btn btn-warning">↩️ ย้อนกลับ</button>
-    <button id="saveCsvBtn" class="btn btn-primary">📥 บันทึก CSV</button>
-    <button id="loadCsvBtn" class="btn btn-secondary">📤 โหลด CSV</button>
-    <input type="file" id="csvFileInput" accept=".csv" class="form-control mt-2 d-none" />
+    <button id="saveCsvBtn" class="btn btn-primary">📥 บันทึก</button>
+    <button id="loadCsvBtn" class="btn btn-secondary">📤 โหลด</button>
+    <input type="file" id="csvFileInput" accept=".kx" class="form-control mt-2 d-none" />
     <button id="saveImage" class="btn btn-success ">💾 บันทึกภาพเป็น PNG</button>
     <button id="exportPdfBtn" class="btn btn-danger ">📄 ส่งออก PDF</button>
   </div>
@@ -273,7 +273,7 @@
       const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
       const link = document.createElement("a");
       link.href = URL.createObjectURL(blob);
-      link.download = "pins.csv";
+      link.download = "pins.kx";
       link.click();
     });
     document.getElementById('loadCsvBtn').addEventListener('click', () => {
