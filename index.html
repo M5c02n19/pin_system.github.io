@@ -324,6 +324,7 @@ planContainer.addEventListener('click', (e) => {
         reader.readAsDataURL(file);
       }
     });
+    /*
     planContainer.addEventListener('click', (e) => {
       const rect = planContainer.getBoundingClientRect();
       const x = (e.clientX - rect.left) / scale;
@@ -342,6 +343,7 @@ planContainer.addEventListener('click', (e) => {
 
       // อัปเดตข้อความแสดงค่าจาก input
     });
+      */
     undoBtn.addEventListener('click', () => {
       if (pins.length === 0) return;
       const lastPin = pins.pop();
