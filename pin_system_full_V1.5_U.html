@@ -102,6 +102,19 @@
           </div>
         </div>
       </div>
+      <div class="col-12 col-md-4">
+        <div class="card shadow-sm h-100">
+          <div class="card-body p-3 d-flex align-items-center">
+            <span class="me-2 fs-4">🛢</span>
+            <div>
+              <div class="fw-bold">พื้นที่ทำกันซึม :</div>
+              <input type="text" id="Areatiled2" class="form-control text-center my-1" value=""
+                placeholder="กรอกค่าพื้นที่" />
+              <small class="text-muted">ม.</small>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
     <input type="hidden" id="pinType" value="green">
     <style>
@@ -226,6 +239,17 @@
               </div>
             </div>
           </div>
+          <div class="col-12 col-md-4">
+            <div class="card shadow-sm h-100">
+              <div class="card-body p-3 d-flex align-items">
+                <span class="me-2 fs-4">🛢</span>
+                <div>
+                  <div class="fw-bold">พื้นที่ทำกันซึม</div>
+                  <span id="AreatiledDisplay2"></span> ม.
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       <script>
@@ -235,11 +259,13 @@
           document.getElementById('AreaceilingDisplay').textContent = document.getElementById('Areaceiling').value || '0';
           document.getElementById('AreatiledDisplay').textContent = document.getElementById('Areatiled').value || '0';
           document.getElementById('AreatiledDisplay1').textContent = document.getElementById('Areatiled1').value || '0';
+          document.getElementById('AreatiledDisplay2').textContent = document.getElementById('Areatiled2').value || '0';
         }
         document.getElementById('Areawall').addEventListener('input', updateAreaDisplays);
         document.getElementById('Areaceiling').addEventListener('input', updateAreaDisplays);
         document.getElementById('Areatiled').addEventListener('input', updateAreaDisplays);
         document.getElementById('Areatiled1').addEventListener('input', updateAreaDisplays);
+        document.getElementById('Areatiled2').addEventListener('input', updateAreaDisplays);
         updateAreaDisplays();
       </script>
       <br>
